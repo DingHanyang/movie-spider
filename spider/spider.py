@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 from bs4 import BeautifulSoup as BS
 
 from urllib.request import urlopen
@@ -16,7 +17,7 @@ class spider:
                     "日剧":"Zuixinriju","泰剧":"Taiguodianshiju"}
 
         for keys in TYPEDICT:
-            html = urlopen("http://www.loldytt.com/" + TYPEDICT[keys] + "/chart/1.html")
+            html = urlopen("http://www.loldytt.com/"+TYPEDICT[keys]+"/chart/1.html")
             bsObj = BS(html.read(), "html.parser",from_encoding="gb18030")
             pageNum=int(re.findall(r"\d+\.?\d*", bsObj.find("div",{"class":"pagebox"}).span.text)[1])
 
@@ -61,6 +62,7 @@ class spider:
             print("名称：",name)
             print("时间：",time)
             print("类型：",type)
+
 
             thunderList=[]#下载连接
             try:
