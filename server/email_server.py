@@ -141,22 +141,22 @@ class SendEmail():
             print ('登陆失败\n')
 
     #创建一封新邮件
-    def create(self,resDict):
+    def create(self,res_list):
         #邮件内容
         htmlP1 = "<html><body><h1>查询消息回复</h1>" \
-                 "<p>共返回结果" + str(len(resDict)) + "条</p>"
+                 "<p>共返回结果" + str(len(res_list)) + "条</p>"
 
         temp = ''
-        for keys in resDict:
-            temp += "<p>_____" + str(keys) + "_____</p>"
-            temp += "<p>名称:" + str(resDict[keys][0]) + "</p>"
-            temp += "<p>类型:" + str(resDict[keys][1]) + "</p>"
-            temp += "<p>更新时间:" + str(resDict[keys][2])+ "</p>"
-            temp += "<p>状态:" + str(resDict[keys][3])+ "</p>"
-            temp += "<p>链接:" + str(resDict[keys][4]) + "</p>"
+        for li in res_list:
+            temp += "<p>_____" + str(int(res_list.index(li))+1) + "_____</p>"
+            temp += "<p>名称:" + str(li["名称"]) + "</p>"
+            temp += "<p>类型:" + str(li["类型"]) + "</p>"
+            temp += "<p>更新时间:" + str(li["更新时间"])+ "</p>"
+            #temp += "<p>状态:" + str(resDict[keys][3])+ "</p>"
+            #temp += "<p>链接:" + str(resDict[keys][4]) + "</p>"
             temp += "<p>下载列表：</p>"
-            for li in resDict[keys][5]:
-                temp+="<p><b>"+str(li[0])+":</b>  "+str(li[1])+"</p>"
+            for l in li["下载连接"]:
+                temp+="<p><b>"+str(l[0])+":</b>  "+str(l[1])+"</p>"
         htmlP2 = temp
         htmlP3 = "</body></html>"
 
