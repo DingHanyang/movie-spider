@@ -1,5 +1,5 @@
 # movie-spider
-定向爬取网站www.loldytt.com的所有资源，并提供邮件推送功能。
+定向爬取网站www.loldytt.com的所有资源，并提供邮件查询功能。
 
 ## 基本功能
 
