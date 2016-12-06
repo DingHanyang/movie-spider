@@ -21,15 +21,17 @@ python版本：`3.5`
 
 均可通过`pip install `安装
 
-需要安装的软件：`PhantomJS	一个无头浏览器`
+需要安装的软件：
 
-​			       `mongoDB3.2   	非关系型数据库	`   	
+`PhantomJS  一个无头浏览器`
 
-PhantomJS
+`mongoDB3.2 非关系型数据库	`   	
+
+PhantomJS:
 
 只需下载并安装到任意路径即可
 
-mongoDB
+mongoDB:
 
 安装可参考我博客园笔记:  [MongoDB笔记](http://www.cnblogs.com/eatPython/p/6091524.html)
 
@@ -38,17 +40,29 @@ mongoDB
 ## 配置文件
 
 [db]
+
 host = 127.0.0.1#默认
+
 port = 27017#默认
 
 [email]
+
 username =     #邮箱名
+
 password =     #邮箱口令（非密码需获取）
+
 popserver = pop.qq.com#此处使用腾讯的邮箱服务
+
 smtpserver = smtp.qq.com#同上
-sendername = 398556053@qq.com#发送者邮箱地址                                                                                            from = eatPython#发送者                                                                                                                                                           to = user#接受者
+
+sendername = 398556053@qq.com#发送者邮箱地址
+
+from = eatPython#发送者
+
+to = user#接受者
 
 [browser]
+
 path = D:\Program Files (x86)\phantomjs-2.1.1-windows\bin\Phantomjs.exe#phantomjs#浏览器路径
 
 
