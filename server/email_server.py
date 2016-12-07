@@ -7,15 +7,23 @@ from email.utils import parseaddr, formataddr
 import poplib
 import smtplib
 
-USERNAME='398556053@qq.com'
-PASSWORD='xhzmraahbzldbjjb'
+from server.Rconfig import Cf
+
+cf = Cf()
+USERNAME=cf.config.get("email","userName")
+PASSWORD=cf.config.get("email","password")
+POPSERVER=cf.config.get("email","popserver")
+SMTPSERVER=cf.config.get("email","smtpserver")
+SENDERNAME=cf.config.get("email","sendername")
+FROM=cf.config.get("email","from")
+TO=cf.config.get("email","to")
 
 
 class ReceiveEmail():
 
     def __init__(self):
         # 连接到POP3服务器:
-        self.server = poplib.POP3_SSL('pop.qq.com')
+        self.server = poplib.POP3_SSL(POPSERVER)
         #print(self.server.getwelcome()),'\n连接到POP服务器'
         # 可以打开或关闭调试信息:
         #self.server.set_debuglevel(1)
@@ -27,8 +35,11 @@ class ReceiveEmail():
         print ('连接到POP服务器,登陆账号成功')
 
     def __re_login(self):
-        self.server.quit()
-        self.server = poplib.POP3_SSL('pop.qq.com')
+        try:
+            self.server.quit()
+        except:
+            pass
+        self.server = poplib.POP3_SSL(POPSERVER)
         try:
             self.server.user(USERNAME)
             self.server.pass_(PASSWORD)
@@ -126,10 +137,10 @@ class SendEmail():
     #初始化各参数
     def __init__(self):
         # 第三方 SMTP 服务
-        self.mail_host = "smtp.qq.com"  # 设置服务器
+        self.mail_host = SMTPSERVER  # 设置服务器
         self.mail_user =USERNAME  # 用户名
         self.mail_pass = PASSWORD  # 口令,QQ邮箱是输入授权码，在qq邮箱设置 里用验证过的手机发送短信获得，不含空格
-        self.sender = '398556053@qq.com'  # 发送方名称
+        self.sender = SENDERNAME  # 发送方名称
 
     #登陆到SMTP服务器
     def login(self):
@@ -163,9 +174,9 @@ class SendEmail():
 
         self.message=MIMEText(htmlP1+htmlP2+htmlP3 ,'html','utf-8')
         #发送方
-        self.message['From'] = _format_addr('吃一口Python <%s>' % self.sender)
+        self.message['From'] = _format_addr(FROM+' <%s>' % self.sender)
         #接收方
-        self.message['To'] = 'you'
+        self.message['To'] = _format_addr(TO+' <%s>' % self.sender)
 
         #邮件标题
         subject = '查询信息回复'
@@ -181,7 +192,9 @@ class SendEmail():
             self.smtpObj.sendmail(self.sender, receivers, self.message.as_string())#发送邮件
             print ('发送成功')
         except smtplib.SMTPException:
-            print ('发送失败\n')
+            self.login()
+            self.smtpObj.sendmail(self.sender, receivers, self.message.as_string())  # 发送邮件
+            print ('发送成功\n')
 
     def quit(self):
         self.smtpObj.quit()
