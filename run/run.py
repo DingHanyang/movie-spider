@@ -73,6 +73,9 @@ class RunServer():
             self.res_list = self.mongo.find_moive(do[2])
             if len(self.res_list)==0:#数据库中不存在则启动在线搜索
                 self.res_list = self.searcher.search_loldytt(do[2])
+                for li in self.res_list:
+                    print(li)
+                    self.mongo.insert_Infos(li)
 
             self.sender.create(self.res_list)
             self.sender.send(do[0])
