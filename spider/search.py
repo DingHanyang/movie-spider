@@ -4,7 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from server.mongo import MongoDao
 from bs4 import BeautifulSoup as BS
 from urllib.request import urlopen
-from urllib.error import HTTPError,URLError
+from urllib.error import HTTPError
 
 
 class Search:
@@ -79,18 +79,16 @@ class Search:
             self.res_list.append({"名称":name,"类型":type,"更新时间":time,"下载连接":url_list})
         return self.res_list
 
-
-
     def quit(self):
         self.browser.quit()
         print('已关闭搜索模块')
 
 
-if __name__ == "__main__":
-    search = Search(r"D:\Program Files (x86)\phantomjs-2.1.1-windows\bin\Phantomjs.exe")
-    search.search_loldytt('超脱')
-    print(search.res_list)
-    search.browser.quit()
+# if __name__ == "__main__":
+#     search = Search(r"D:\Program Files (x86)\phantomjs-2.1.1-windows\bin\Phantomjs.exe")
+#     search.search_loldytt('超脱')
+#     print(search.res_list)
+#     search.browser.quit()
 
 
 
