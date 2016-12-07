@@ -2,11 +2,17 @@
 from pymongo import MongoClient
 import re
 
+from server.Rconfig import Cf
+
+cf = Cf()
+PORT=cf.config.getint("db","port")
+HOST=cf.config.get("db","host")
+
 
 class MongoDao():
 
     def __init__(self):
-        self.client = MongoClient()  # 创建默认连接 localhost 27017
+        self.client = MongoClient(port=PORT,host=HOST)  # 创建默认连接 localhost 27017
         self.db=self.client.movie    # 选择数据库 如果不存在将在插入数据后建立
         print("与数据库成功建立连接")
 
