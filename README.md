@@ -90,9 +90,53 @@ path = D:\Program Files (x86)\phantomjs-2.1.1-windows\bin\Phantomjs.exe#phantomj
 
 不同于spider,search采用selenium模拟浏览器的行为，对搜索框进行输入，并跳转到搜索结果页面后才采用urllib的方式进行采集。
 
+关于selenium的使用可以参考我博客园文章：[selenium笔记(1)](http://www.cnblogs.com/eatPython/p/6062119.html)
+
+### 3.email_server.py
+
+* ReceiveEmail
+
+  接收邮件，由于我只提取邮件heaber信息，所以在邮件解析方面做了简化，只解析出发送者、接受者、时间、标题四种信息。具体可以参考：[廖雪峰的官方网站--python电子邮件](http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432005156604f38836be1707453eb025ce8c3079978d000)
+
+* SendEmail
+
+  包括编辑邮件和发送邮件，发送的邮件是HTML格式的，目前只能在程序内自行修改，有待改进。
+
+### 4.mongo.py
+
+连接非关系型数据库Mongo,提供插入和模糊查询功能。
+
+### 5.Rconfig.py
+
+读取配置信息。
+
+### 6.run.py
+
+运行服务。在运行完爬虫收集数据后，提供邮件查询服务。
+
+* 线程1用于定时接收邮件，包括通过上一次接收邮件的时间来判断这封邮件是否处理过。
+
+  (由于腾讯服务器的限制，采用120秒登陆一次邮件服务器的形式收取邮件，一次读取5封，可调整。)
+
+* 线程2用于判断公共队列中是否有待处理邮件，存在则处理，否则线程等待。
 
 
-# 未完
+
+## 运行
+
+* 配置好环境后首先打开mongo数据库
+
+* 首次运行先进行数据采集 `Python spider.py`
+
+* 之后运行服务`python run.py`
+
+  ​
+
+
+
+
+
+
 
 
 
