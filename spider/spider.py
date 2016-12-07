@@ -7,11 +7,9 @@ import re
 from queue import Queue
 import time
 
-
 class spider:
 
     url_queue=Queue()
-
     # 根据网站不同分类页面来爬取所有电影的详细页面地址，存放后再从详细页面获取信息。
     def spider_url(self):
         TYPEDICT = {"科幻电影":"Kehuandianying","动作电影":"Dongzuodianying","恐怖电影":"Kongbudianying",
@@ -108,5 +106,4 @@ def work(spider):
 
 
 if __name__=="__main__":
-    spider=spider()
-    work(spider)
+   print(123)
